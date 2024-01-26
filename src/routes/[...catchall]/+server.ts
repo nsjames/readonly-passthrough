@@ -1,13 +1,11 @@
 import "isomorphic-fetch";
 import {JsSignatureProvider} from "enf-eosjs/dist/eosjs-jssig";
 import {Api, JsonRpc} from "enf-eosjs";
+// test commit
 import {Buffer} from "buffer";
 
 const defaultPrivateKey = "5JPxfTRgiLKJgYkFjAtrRMF15xcTUgTzFSh1cjgdAvJYRX9SWHF";
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey]);
-
-
-
 
 const NETWORKS = {
     'mainnet': 'https://eos.greymass.com',
