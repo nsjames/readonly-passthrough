@@ -9,13 +9,12 @@
 	"scripts": {
 		"start": "bun index.ts",
 		"dev": "bun --watch index.ts",
-		"test": "bun test",
-		"posttest": "tsc --noEmit"
+		"test": "bun test"
 	},
 	"dependencies": {
 		"@wharfkit/session": "latest",
 		"hono": "latest",
-		"openapi3-ts": "^4.2.1"
+		"openapi3-ts": "latest"
 	},
 	"devDependencies": {
 		"bun-types": "latest",

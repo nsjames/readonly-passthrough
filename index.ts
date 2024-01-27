@@ -29,6 +29,7 @@ app.get('/:contract/:action', async (c) => {
     if ( !contract ) return c.json({error: 'contract is required'});
     try {
         const response = await handle_response(contract, action, data, network);
+        if ( typeof response === 'object' ) return c.json(response);
         return c.text(response);
     } catch (e) {
         return c.json({error: e.message});
@@ -37,7 +38,7 @@ app.get('/:contract/:action', async (c) => {
 
 app.post('/:contract/:action', async (c) => {
     // const data = c.body; // optional JSON encoded data
-    let data = await c.req.json() ?? {};
+    let data = await c.req.text();
     try {
         data = JSON.parse(data);
     } catch (e) {
@@ -51,6 +52,7 @@ app.post('/:contract/:action', async (c) => {
     if ( !contract ) return c.json({error: 'contract is required'});
     try {
         const response = await handle_response(contract, action, data, network);
+        if ( typeof response === 'object' ) return c.json(response);
         return c.text(response);
     } catch (e) {
         return c.json({error: e.message});
@@ -58,7 +60,6 @@ app.post('/:contract/:action', async (c) => {
 })
 
 async function handle_response(contract: string, action: string, data: any, network: string) {
-    console.log('handle_response', {contract, action, data, network});
     const rpc = rpcs[network];
     const abi = await get_abi(rpc, contract);
     const value = await read_only(abi, rpc, contract, action, data);
