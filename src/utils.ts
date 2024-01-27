@@ -10,7 +10,7 @@ export function get_type( abi: ABI.Def, action: string ) {
     for ( const action_result of abi.action_results ) {
         if ( action_result.name === action ) return action_result.result_type;
     }
-    throw new Error(`action ${action} has no action return value`);
+    throw new Error(`[action=${action}] has no action return value`);
 }
 
 export function decode(abi: ABI.Def, return_value_hex_data: string, action: string) {
@@ -41,8 +41,7 @@ export function create_action( abi: ABI.Def, account: string, name: string, data
     }, abi);
 }
 
-export async function read_only( rpc: APIClient, account: string, name: string, data: any ) {
-    const abi = await get_abi(rpc, account);
+export async function read_only( abi: ABI.Def, rpc: APIClient, account: string, name: string, data: any ) {
     const action = create_action(abi, account, name, data);
     const info = await rpc.v1.chain.get_info();
     const header = info.getTransactionHeader();

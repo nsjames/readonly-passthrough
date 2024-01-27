@@ -7,8 +7,8 @@
 	"type": "module",
 	"license": "MIT",
 	"scripts": {
-		"start": "bun hono.ts",
-		"dev": "bun --watch hono.ts",
+		"start": "bun index.ts",
+		"dev": "bun --watch index.ts",
 		"test": "bun test",
 		"posttest": "tsc --noEmit"
 	},
