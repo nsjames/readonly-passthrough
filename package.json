@@ -1,34 +1,24 @@
 {
-	"name": "readonly-passthrough",
-	"version": "0.0.1",
 	"private": true,
+	"version": "0.1.0",
+	"name": "readonly-passthrough",
+	"description": "EOS Readonly fetch API",
+	"homepage": "https://github.com/nsjames/readonly-passthrough",
+	"type": "module",
+	"license": "MIT",
 	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"start": "bun hono.ts",
+		"dev": "bun --watch hono.ts",
+		"test": "bun test",
+		"posttest": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@wharfkit/session": "latest",
+		"hono": "latest",
+		"openapi3-ts": "^4.2.1"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^3.0.0",
-		"svelte": "^4.2.7",
-		"svelte-check": "^3.6.0",
-		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
-		"vite": "^5.0.3"
-	},
-	"type": "module",
-	"dependencies": {
-		"@sveltejs/adapter-vercel": "^4.0.4",
-		"@wharfkit/session": "^1.2.7",
-		"@wharfkit/wallet-plugin-anchor": "^1.1.0",
-		"@wharfkit/wallet-plugin-privatekey": "^1.1.0",
-		"@wharfkit/web-renderer": "^1.1.2",
-		"buffer": "^6.0.3",
-		"enf-eosjs": "^23.0.0",
-		"eosjs": "^22.1.0",
-		"isomorphic-fetch": "^3.0.0"
+		"bun-types": "latest",
+		"typescript": "latest"
 	}
 }
