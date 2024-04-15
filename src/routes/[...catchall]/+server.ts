@@ -6,7 +6,7 @@ import {Buffer} from "buffer";
 const defaultPrivateKey = "5JPxfTRgiLKJgYkFjAtrRMF15xcTUgTzFSh1cjgdAvJYRX9SWHF";
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey]);
 
-
+import { APIClient } from "@wharfkit/session"
 
 
 const NETWORKS = {
@@ -18,12 +18,11 @@ export const config = {
     runtime: 'edge',
 };
 
-// json: sj5wyvn1azme/get
-// text: t53ryjs2mw1d/get
-// html: sk3bjrendfhx/get
-// user-specified: n1c344mpfpbe/get
-
 const getReadOnlyResult = async (network:string|null, contract: string, action: string, data: any|null) => {
+    if(contract === "favicon.ico") return null;
+
+    console.log('data', data);
+
     let _network = null;
 
     if(!network) {
@@ -37,6 +36,8 @@ const getReadOnlyResult = async (network:string|null, contract: string, action: 
         }
     }
 
+    const client = new APIClient({ url: _network });
+
     const rpc = new JsonRpc(_network);
     const api = new Api({ rpc, signatureProvider });
 
@@ -44,7 +45,6 @@ const getReadOnlyResult = async (network:string|null, contract: string, action: 
     if(data) {
         try {
             if(typeof data === 'string') {
-                console.log('_data', decodeURI(data));
                 _data = JSON.parse(decodeURI(data))
             } else {
                 _data = data;
@@ -69,6 +69,7 @@ const getReadOnlyResult = async (network:string|null, contract: string, action: 
     }).catch((e) => {
         console.error('error 1', e, contract, action);
     });
+
     const readonlyResult = await api.sendReadonlyTransaction({
         signatures: [],
         serializedTransaction: result.serializedTransaction,
@@ -145,6 +146,7 @@ export async function POST(event): Promise<any> {
     const [contract, action] = event.params.catchall.split('/');
     const headers = event.request.headers;
     const network = event.url.searchParams.get('network') || headers.get('x-network');
+
 
     const data = await event.request.json();
     const result = await getReadOnlyResult(network, contract, action, data);

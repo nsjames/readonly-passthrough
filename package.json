@@ -22,7 +22,7 @@
 	"type": "module",
 	"dependencies": {
 		"@sveltejs/adapter-vercel": "^4.0.4",
-		"@wharfkit/session": "^1.2.1",
+		"@wharfkit/session": "^1.2.8",
 		"@wharfkit/wallet-plugin-anchor": "^1.1.0",
 		"@wharfkit/wallet-plugin-privatekey": "^1.1.0",
 		"@wharfkit/web-renderer": "^1.1.2",

@@ -371,7 +371,7 @@
     node-gyp-build "^4.2.2"
     resolve-from "^5.0.0"
 
-"@wharfkit/abicache@^1.2.1":
+"@wharfkit/abicache@^1.2.0", "@wharfkit/abicache@^1.2.1":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@wharfkit/abicache/-/abicache-1.2.2.tgz#c3d83485e3e3782ac94ced460915bad1ceee0be9"
   integrity sha512-yOsYz2qQpQy7Nb8XZj62pZqp8YnmWDqFlrenYksBb9jl+1aWIpFhWd+14VEez4tUAezRH4UWW+w1SX5vhmUY9A==
@@ -381,10 +381,34 @@
     pako "^2.0.4"
     tslib "^2.1.0"
 
+"@wharfkit/account@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@wharfkit/account/-/account-1.0.1.tgz#84934dfbee7e9f5dfe9972b5f2a2165c43afcfe8"
+  integrity sha512-BtyoXgELprV/cqIdEi/Kl4iFLATDW6t2PWoQTYzeVXlyWekPsAkbaQ00lSLrt+7+8QEb65gUi5Z+/SWR34RqIA==
+  dependencies:
+    "@wharfkit/antelope" "^1.0.0"
+    "@wharfkit/common" "^1.2.0"
+    "@wharfkit/contract" "^1.0.0"
+    "@wharfkit/resources" "^1.1.0"
+    "@wharfkit/token" "^1.1.2"
+    tslib "^2.1.0"
+
 "@wharfkit/antelope@^1.0.0", "@wharfkit/antelope@^1.0.2":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@wharfkit/antelope/-/antelope-1.0.3.tgz#e9863451fb7dac51f40d48dead097e29bdcd0c13"
   integrity sha512-ZoSswmOEWu9U0OqwBfs4G8+dbdPyrVMBQugfveg/eTMMyWeHuKXSvEXgefPhBHmY3Q9uXWweYZeXrF/SoWPoNQ==
+  dependencies:
+    bn.js "^4.11.9"
+    brorand "^1.1.0"
+    elliptic "^6.5.4"
+    hash.js "^1.0.0"
+    pako "^2.1.0"
+    tslib "^2.0.3"
+
+"@wharfkit/antelope@^1.0.4":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@wharfkit/antelope/-/antelope-1.0.7.tgz#5ca010db963e061b2e8c47c14e55f86817718c2e"
+  integrity sha512-C4DRC4U+qC2XQKUgwznKX6i8xdKo+ZqxkZURrPTtY3v53IvKwj+3amTQQSpuECechS5x6ItcT+/fOFBNlQ2Juw==
   dependencies:
     bn.js "^4.11.9"
     brorand "^1.1.0"
@@ -400,6 +424,16 @@
   dependencies:
     tslib "^2.1.0"
 
+"@wharfkit/contract@^1.0.0", "@wharfkit/contract@^1.1.4":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@wharfkit/contract/-/contract-1.1.5.tgz#2ca10090330cbb458049890076089237b644eb0e"
+  integrity sha512-I4w2QFvD/zb4uj5z0U4uQJLRCiZEbrT+AJ9/5goGm6SU42fsRud/k55qSBzW8Ij00OAv2h1+e8rR7xzUruXC9g==
+  dependencies:
+    "@wharfkit/abicache" "^1.2.0"
+    "@wharfkit/antelope" "^1.0.4"
+    "@wharfkit/signing-request" "^3.1.0"
+    tslib "^2.1.0"
+
 "@wharfkit/protocol-esr@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@wharfkit/protocol-esr/-/protocol-esr-1.1.0.tgz#a7bd2cce784b9010bf04cdee76c64d7c717916f1"
@@ -410,12 +444,23 @@
     isomorphic-ws "^5.0.0"
     ws "^8.13.0"
 
-"@wharfkit/session@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@wharfkit/session/-/session-1.2.1.tgz#e0fa8ce11eac218a4eb63670416844188ecb55bd"
-  integrity sha512-4NG2OrKAFEpFUzD7uHtnmnzi3S+eQhJ0ZCid9AYVfxb1PeXFl9YlEVcCwylG2pRTlwoaVir4onkp4rGzpawzzw==
+"@wharfkit/resources@^1.1.0":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@wharfkit/resources/-/resources-1.2.2.tgz#5c58140745d013533739b1ee285cbd1031c3f063"
+  integrity sha512-WOsI5pIklx3rkz1OmUNISyYbG6cwaAOcHShRCeUrpEwWykjW91iEjslFtoW1+ZyQ0aJOUc9v6721jvS7gP3OPg==
+  dependencies:
+    "@wharfkit/antelope" "^1.0.0"
+    bn.js "^4.11.9"
+    js-big-decimal "^2.0.7"
+    tslib "^2.1.0"
+
+"@wharfkit/session@^1.2.8":
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/@wharfkit/session/-/session-1.2.8.tgz#84de7a2343df4a45600af6e1e3fe294785da295f"
+  integrity sha512-F1oC+4rqCDbt84eKI0Vd2ahhR05Zi2FefqD14PLOo8sj1s5oR5uq7Zc9orSmprkkTqnYFAh9QOck+CWe+xR+8A==
   dependencies:
     "@wharfkit/abicache" "^1.2.1"
+    "@wharfkit/account" "^1.0.0"
     "@wharfkit/antelope" "^1.0.2"
     "@wharfkit/common" "^1.2.0"
     "@wharfkit/signing-request" "^3.1.0"
@@ -429,6 +474,16 @@
   dependencies:
     "@wharfkit/antelope" "^1.0.0"
     tslib "^2.0.3"
+
+"@wharfkit/token@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@wharfkit/token/-/token-1.1.2.tgz#de01dc211c10e6d3ccf9948357e8373bf6067259"
+  integrity sha512-LYAGB7LnE3hxwjNsYYwpxbJ8APi0Y8pmh7i1SeKv13HaPVjuHisTnuPxJm3ndwU7pX9GT3hPyo/By0l3CEuLfw==
+  dependencies:
+    "@wharfkit/antelope" "^1.0.4"
+    "@wharfkit/contract" "^1.1.4"
+    bn.js "^4.11.9"
+    tslib "^2.1.0"
 
 "@wharfkit/wallet-plugin-anchor@^1.1.0":
   version "1.1.0"
@@ -983,6 +1038,11 @@ isomorphic-ws@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/isomorphic-ws/-/isomorphic-ws-5.0.0.tgz#e5529148912ecb9b451b46ed44d53dae1ce04bbf"
   integrity sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==
+
+js-big-decimal@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/js-big-decimal/-/js-big-decimal-2.0.7.tgz#fb9b44b4c1eae08903cb191c0cf37b82f3a8d7c4"
+  integrity sha512-XGc79t2Iv3b7LFlYaTT8WoQBuWL4K81aST+dq2YGHV6giedbnoG0s33ju24Uw/BGqLYfPPgn4HGRrPS2mfKk3Q==
 
 kleur@^4.1.5:
   version "4.1.5"
