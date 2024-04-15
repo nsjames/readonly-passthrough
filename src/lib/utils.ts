@@ -49,8 +49,4 @@ export async function read_only( rpc: APIClient, account: string, name: string, 
     const transaction = Transaction.from({ ...header, actions: [action] });
     const signedTransaction = SignedTransaction.from({ ...transaction });
     return rpc.v1.chain.send_read_only_transaction(signedTransaction);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 56f92ba373716337067b016b62b5bb8d0b6cdc2b
