@@ -1,12 +1,7 @@
 import "isomorphic-fetch";
-import {JsSignatureProvider} from "enf-eosjs/dist/eosjs-jssig";
 import {get_abi, read_only, decode} from "$lib/utils";
 
-const defaultPrivateKey = "5JPxfTRgiLKJgYkFjAtrRMF15xcTUgTzFSh1cjgdAvJYRX9SWHF";
-const signatureProvider = new JsSignatureProvider([defaultPrivateKey]);
-
 import { APIClient } from "@wharfkit/session"
-
 
 const NETWORKS = {
     'mainnet': 'https://eos.greymass.com',
