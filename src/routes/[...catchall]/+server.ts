@@ -1,7 +1,5 @@
 import "isomorphic-fetch";
 import {JsSignatureProvider} from "enf-eosjs/dist/eosjs-jssig";
-import {Api, JsonRpc} from "enf-eosjs";
-import {Buffer} from "buffer";
 import {get_abi, read_only, decode} from "$lib/utils";
 
 const defaultPrivateKey = "5JPxfTRgiLKJgYkFjAtrRMF15xcTUgTzFSh1cjgdAvJYRX9SWHF";
@@ -34,9 +32,6 @@ const getReadOnlyResult = async (network:string|null, contract: string, action: 
             if(!_network) return null;
         }
     }
-
-    // const rpc = new JsonRpc(_network);
-    // const api = new Api({ rpc, signatureProvider });
 
     let _data = {};
     if(data) {
