@@ -2,6 +2,7 @@ import "isomorphic-fetch";
 import {JsSignatureProvider} from "enf-eosjs/dist/eosjs-jssig";
 import {Api, JsonRpc} from "enf-eosjs";
 import {Buffer} from "buffer";
+import {get_abi, read_only, decode} from "$lib/utils";
 
 const defaultPrivateKey = "5JPxfTRgiLKJgYkFjAtrRMF15xcTUgTzFSh1cjgdAvJYRX9SWHF";
 const signatureProvider = new JsSignatureProvider([defaultPrivateKey]);
@@ -21,8 +22,6 @@ export const config = {
 const getReadOnlyResult = async (network:string|null, contract: string, action: string, data: any|null) => {
     if(contract === "favicon.ico") return null;
 
-    console.log('data', data);
-
     let _network = null;
 
     if(!network) {
@@ -36,10 +35,8 @@ const getReadOnlyResult = async (network:string|null, contract: string, action: 
         }
     }
 
-    const client = new APIClient({ url: _network });
-
-    const rpc = new JsonRpc(_network);
-    const api = new Api({ rpc, signatureProvider });
+    // const rpc = new JsonRpc(_network);
+    // const api = new Api({ rpc, signatureProvider });
 
     let _data = {};
     if(data) {
@@ -55,53 +52,11 @@ const getReadOnlyResult = async (network:string|null, contract: string, action: 
         }
     }
 
-    const result = await api.transact({
-        actions: [{
-            account: contract,
-            name: action,
-            authorization: [],
-            data: _data,
-        }]
-    }, {
-        blocksBehind: 3,
-        expireSeconds: 30,
-        broadcast: false,
-    }).catch((e) => {
-        console.error('error 1', e, contract, action);
-    });
-
-    const readonlyResult = await api.sendReadonlyTransaction({
-        signatures: [],
-        serializedTransaction: result.serializedTransaction,
-        serializedContextFreeData: result.serializedContextFreeData,
-    }).catch((e) => {
-        console.error('error 2', e);
-        return null;
-    });
-
-
-    if(readonlyResult) {
-        const returnValueHexes = readonlyResult.processed.action_traces[0].return_value_hex_data;
-        if(!returnValueHexes) return null;
-
-        const returnValue = Buffer.from(returnValueHexes, 'hex').toString('utf8');
-        let resultString = "";
-        // TODO: Fix this hack later to properly handle hex conversion using ABIs (jungle not supporting)
-        for(let i = 0; i < returnValue.length; i++) {
-            if(returnValue.charCodeAt(i) <= 31) {
-                continue;
-            }
-
-            if(returnValue.charCodeAt(i) >= 5000) {
-                continue;
-            }
-
-            resultString += returnValue[i];
-        }
-
-        return resultString;
-    }
-    return null;
+    const rpc = new APIClient({ url: _network });
+    const abi = await get_abi(rpc, contract);
+    const value = await read_only(rpc, contract, action, _data);
+    const return_value_hex_data = value.processed.action_traces[0].return_value_hex_data;
+    return decode(abi, return_value_hex_data, action)
 }
 
 const inferContentType = (content: string|null) => {
