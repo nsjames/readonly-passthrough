@@ -52,6 +52,10 @@ const getReadOnlyResult = async (network:string|null, contract: string, action: 
 const inferContentType = (content: string|null) => {
     if (!content) return 'text/plain';
 
+    try {
+        content = JSON.stringify(content);
+    } catch (e) {}
+
     // check if has user-specific content type
     if (content.startsWith('data:') && content.includes(';')) {
         return content.split(';')[0].substring(5);
@@ -77,7 +81,8 @@ export async function GET(event): Promise<any> {
     const headers = event.request.headers;
     const network = event.url.searchParams.get('network') || headers.get('x-network');
 
-    const result = await getReadOnlyResult(network, contract, action, data);
+    let result = await getReadOnlyResult(network, contract, action, data);
+    try { result = JSON.stringify(result) } catch (e) {}
 
     return new Response(result, {
         headers: {
@@ -94,7 +99,8 @@ export async function POST(event): Promise<any> {
 
 
     const data = await event.request.json();
-    const result = await getReadOnlyResult(network, contract, action, data);
+    let result = await getReadOnlyResult(network, contract, action, data);
+    try { result = JSON.stringify(result) } catch (e) {}
 
     return new Response(result, {
         headers: {
