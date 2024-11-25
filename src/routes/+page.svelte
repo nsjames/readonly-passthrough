@@ -48,3 +48,12 @@
         If no network is specified, the API will use the EOS mainnet as the default network.
     </p>
 </section>
+
+<section>
+    <h2>Format parameters</h2>
+
+    <textarea>
+
+    </textarea>
+</section>
+

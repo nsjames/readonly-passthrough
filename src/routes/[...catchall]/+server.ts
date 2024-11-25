@@ -23,8 +23,9 @@ const getReadOnlyResult = async (network:string|null, contract: string, action: 
         if(network.startsWith('http')) {
             _network = network;
         } else {
+            // @ts-ignore
             _network = NETWORKS[network];
-            if(!_network) return null;
+            if(!_network) return "Invalid network";
         }
     }
 
@@ -62,7 +63,7 @@ const inferContentType = (content: string|null) => {
     }
 
     // application/json
-    if ((content.startsWith('{') && content.endsWith('}')) || (content.startsWith('[') && content.endsWith(']'))) {
+    if ((content.startsWith('"{') && content.endsWith('}"')) || (content.startsWith('"[') && content.endsWith(']"'))) {
         return 'application/json';
     }
 
