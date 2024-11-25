@@ -29,25 +29,34 @@ const getReadOnlyResult = async (network:string|null, contract: string, action: 
         }
     }
 
-    let _data = {};
-    if(data) {
-        try {
-            if(typeof data === 'string') {
-                _data = JSON.parse(decodeURI(data))
-            } else {
-                _data = data;
-            }
-        } catch(e) {
-            console.error('error parsing data', e);
-            return null;
-        }
-    }
-
     const rpc = new APIClient({ url: _network });
     const abi = await get_abi(rpc, contract);
-    const value = await read_only(rpc, contract, action, _data);
-    const return_value_hex_data = value.processed.action_traces[0].return_value_hex_data;
-    return decode(abi, return_value_hex_data, action)
+
+    if(Array.isArray(data)) {
+        const actionAbi = abi.actions.find(x => x.name === action);
+        const actionAbiFields = abi.structs.find(x => x.name === actionAbi!.type);
+        const formattedData:any = {};
+
+        let i = 0;
+        for (const field of actionAbiFields!.fields) {
+            try {
+                formattedData[field.name] = JSON.parse(data[i]);
+            } catch (e) {
+                formattedData[field.name] = decodeURIComponent(data[i]);
+            }
+            i++;
+        }
+
+        const value = await read_only(rpc, contract, action, formattedData);
+        const return_value_hex_data = value.processed.action_traces[0].return_value_hex_data;
+        return decode(abi, return_value_hex_data, action)
+    } else {
+        const _data = JSON.parse(decodeURI(data))
+        const value = await read_only(rpc, contract, action, _data);
+        const return_value_hex_data = value.processed.action_traces[0].return_value_hex_data;
+        return decode(abi, return_value_hex_data, action)
+    }
+
 }
 
 const inferContentType = (content: string|null) => {
@@ -78,7 +87,7 @@ const inferContentType = (content: string|null) => {
 }
 
 export async function GET(event): Promise<any> {
-    const [contract, action, data] = event.params.catchall.split('/');
+    const [contract, action, ...data] = event.params.catchall.split('/');
     const headers = event.request.headers;
     const network = event.url.searchParams.get('network') || headers.get('x-network');
 
