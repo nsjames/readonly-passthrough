@@ -18,7 +18,8 @@ export function decode(abi: ABI.Def, return_value_hex_data: string, action: stri
     const decoded = Serializer.decode({data: return_value_hex_data, type, abi});
     if ( decoded.toJSON ) return decoded.toJSON();
     try {
-        return JSON.parse(decoded);
+        if(decoded.indexOf('{') > -1) return JSON.parse(decoded);
+        if(decoded.indexOf('[') > -1) return JSON.parse(decoded);
     } catch (e) {}
     if ( typeof decoded === "string" ) return decoded;
     if ( typeof decoded === "number" ) return decoded;

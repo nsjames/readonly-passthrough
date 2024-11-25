@@ -52,8 +52,13 @@
 <section>
     <h2>Format parameters</h2>
 
-    <textarea>
-
-    </textarea>
+    <textarea bind:value={textToFormat} />
+    <section class="formatted">
+        <pre>{formatted}</pre>
+    </section>
 </section>
 
+<script lang="ts">
+    let textToFormat = '';
+    $: formatted = encodeURIComponent(textToFormat.trim());
+</script>
